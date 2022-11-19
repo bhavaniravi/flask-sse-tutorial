@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flask-SSE Quickstart</title>
+</head>
+<body>
+  <h1>Flask-SSE Quickstart</h1>
+  <script>
+    var source = new EventSource("/stream");
+    source.onmessage = (e) => {
+        console.log(e.data);
+    }
+    source.addEventListener('greeting', function(event) {
+        console.log(event.data)
+        var data = JSON.parse(event.data);
+        var message = document.getElementById('message');
+        message.innerHTML += `<li>${data.message}</li>`
+    }, false);
+    source.addEventListener('error', function(event) {
+        console.log(event.data)
+    
+    }, false);
+  </script>
+  <div id="message">
+
+  </div>
+</body>
+</html>
